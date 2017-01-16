@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jmeterTestPlan version="1.2" properties="2.3">
+<jmeterTestPlan version="1.2" properties="2.8" jmeter="2.13 r1665067">
   <hashTree>
     <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="CAS Test Plan" enabled="true">
       <stringProp name="TestPlan.comments"></stringProp>
@@ -9,7 +9,7 @@
         <collectionProp name="Arguments.arguments">
           <elementProp name="base_url" elementType="Argument">
             <stringProp name="Argument.name">base_url</stringProp>
-            <stringProp name="Argument.value">cas.server.edu</stringProp>
+            <stringProp name="Argument.value">login.uoh.edu.sa</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="cas_prefix" elementType="Argument">
@@ -19,27 +19,27 @@
           </elementProp>
           <elementProp name="cas_login" elementType="Argument">
             <stringProp name="Argument.name">cas_login</stringProp>
-            <stringProp name="Argument.value">/cas/login</stringProp>
+            <stringProp name="Argument.value">/cas/login?locale=en</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="rampup" elementType="Argument">
             <stringProp name="Argument.name">rampup</stringProp>
-            <stringProp name="Argument.value">150</stringProp>
+            <stringProp name="Argument.value">1</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="loop" elementType="Argument">
             <stringProp name="Argument.name">loop</stringProp>
-            <stringProp name="Argument.value">15</stringProp>
+            <stringProp name="Argument.value">1</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="threads" elementType="Argument">
             <stringProp name="Argument.name">threads</stringProp>
-            <stringProp name="Argument.value">20</stringProp>
+            <stringProp name="Argument.value">1</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="target_service" elementType="Argument">
             <stringProp name="Argument.name">target_service</stringProp>
-            <stringProp name="Argument.value">https://some.application.edu</stringProp>
+            <stringProp name="Argument.value">https://my.uoh.edu.sa</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="cas_logout" elementType="Argument">
@@ -65,9 +65,9 @@
         </elementProp>
         <stringProp name="ThreadGroup.num_threads">${threads}</stringProp>
         <stringProp name="ThreadGroup.ramp_time">${rampup}</stringProp>
-        <longProp name="ThreadGroup.start_time">1345824660000</longProp>
-        <longProp name="ThreadGroup.end_time">1345826520000</longProp>
-        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <longProp name="ThreadGroup.start_time">1484235905000</longProp>
+        <longProp name="ThreadGroup.end_time">1484235930000</longProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
         <stringProp name="ThreadGroup.duration"></stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
       </ThreadGroup>
@@ -138,7 +138,7 @@
                 </elementProp>
                 <elementProp name="submit" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">true</boolProp>
-                  <stringProp name="Argument.value">Login</stringProp>
+                  <stringProp name="Argument.value">Log in</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                   <boolProp name="HTTPArgument.use_equals">true</boolProp>
                   <stringProp name="Argument.name">submit</stringProp>
@@ -207,6 +207,61 @@
             <boolProp name="HTTPSampler.monitor">false</boolProp>
             <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
           </HTTPSamplerProxy>
+          <hashTree>
+            <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Retrieve ST" enabled="true">
+              <stringProp name="RegexExtractor.useHeaders">true</stringProp>
+              <stringProp name="RegexExtractor.refname">st</stringProp>
+              <stringProp name="RegexExtractor.regex">ticket=(.+)</stringProp>
+              <stringProp name="RegexExtractor.template">$1$</stringProp>
+              <stringProp name="RegexExtractor.default"></stringProp>
+              <stringProp name="RegexExtractor.match_number">1</stringProp>
+            </RegexExtractor>
+            <hashTree/>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Service ticket assertion" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="2088792476">ticket=.+
+</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.test_field">Assertion.response_headers</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">2</intProp>
+            </ResponseAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Validate" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="service" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.value">${target_service}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">service</stringProp>
+                </elementProp>
+                <elementProp name="ticket" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${st}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">ticket</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">${cas_serviceValidate}</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <boolProp name="HTTPSampler.monitor">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          </HTTPSamplerProxy>
           <hashTree/>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Logout" enabled="true">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
@@ -230,14 +285,14 @@
           </HTTPSamplerProxy>
           <hashTree/>
           <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="Test Users" enabled="true">
-            <stringProp name="filename">/Users/ryoung038/jmeter/testusers.txt</stringProp>
+            <stringProp name="filename">/etc/cas/users.txt</stringProp>
             <stringProp name="fileEncoding"></stringProp>
             <stringProp name="variableNames">username,password</stringProp>
             <stringProp name="delimiter">,</stringProp>
             <boolProp name="quotedData">false</boolProp>
             <boolProp name="recycle">true</boolProp>
             <boolProp name="stopThread">false</boolProp>
-            <stringProp name="shareMode">Current thread group</stringProp>
+            <stringProp name="shareMode">shareMode.group</stringProp>
           </CSVDataSet>
           <hashTree/>
         </hashTree>
@@ -247,7 +302,7 @@
           <collectionProp name="Arguments.arguments"/>
         </elementProp>
         <stringProp name="HTTPSampler.domain">${base_url}</stringProp>
-        <stringProp name="HTTPSampler.port"></stringProp>
+        <stringProp name="HTTPSampler.port">8447</stringProp>
         <stringProp name="HTTPSampler.connect_timeout"></stringProp>
         <stringProp name="HTTPSampler.response_timeout"></stringProp>
         <stringProp name="HTTPSampler.protocol">https</stringProp>
@@ -284,13 +339,14 @@
             <assertionsResultsToSave>0</assertionsResultsToSave>
             <bytes>true</bytes>
             <url>true</url>
+            <threadCounts>true</threadCounts>
           </value>
         </objProp>
         <stringProp name="filename">aggregate.xml</stringProp>
       </ResultCollector>
       <hashTree/>
       <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
-        <boolProp name="ResultCollector.error_logging">true</boolProp>
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
         <objProp>
           <name>saveConfig</name>
           <value class="SampleSaveConfiguration">
@@ -317,6 +373,7 @@
             <assertionsResultsToSave>0</assertionsResultsToSave>
             <bytes>true</bytes>
             <url>true</url>
+            <threadCounts>true</threadCounts>
           </value>
         </objProp>
         <stringProp name="filename">results-tree.xml</stringProp>
@@ -336,6 +393,39 @@
         </collectionProp>
         <boolProp name="CookieManager.clearEachIteration">true</boolProp>
       </CookieManager>
+      <hashTree/>
+      <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="true">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>false</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <threadCounts>true</threadCounts>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
       <hashTree/>
     </hashTree>
   </hashTree>

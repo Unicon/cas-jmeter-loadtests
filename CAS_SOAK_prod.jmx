@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jmeterTestPlan version="1.2" properties="2.3">
+<jmeterTestPlan version="1.2" properties="2.8" jmeter="2.13 r1665067">
   <hashTree>
     <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="CAS Soak Lamar Prod" enabled="true">
       <boolProp name="TestPlan.functional_mode">false</boolProp>
@@ -50,6 +50,7 @@
         <hashTree/>
         <SyncTimer guiclass="TestBeanGUI" testclass="SyncTimer" testname="Synchronizing Timer" enabled="true">
           <intProp name="groupSize">5</intProp>
+          <longProp name="timeoutInMs">0</longProp>
         </SyncTimer>
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Access Protected App" enabled="true">
@@ -127,6 +128,7 @@
                 <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
                 <assertionsResultsToSave>0</assertionsResultsToSave>
                 <bytes>true</bytes>
+                <threadCounts>true</threadCounts>
               </value>
             </objProp>
             <stringProp name="filename">/var/log/loadtest-results/CAS_LOAD_BASIC_prod_protected_app_results.xml</stringProp>
@@ -225,6 +227,7 @@
                 <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
                 <assertionsResultsToSave>0</assertionsResultsToSave>
                 <bytes>true</bytes>
+                <threadCounts>true</threadCounts>
               </value>
             </objProp>
             <stringProp name="filename">/var/log/loadtest-results/CAS_LOAD_BASIC_prod_submit_login_form_results.xml</stringProp>
@@ -292,6 +295,7 @@
                 <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
                 <assertionsResultsToSave>0</assertionsResultsToSave>
                 <bytes>true</bytes>
+                <threadCounts>true</threadCounts>
               </value>
             </objProp>
             <stringProp name="filename">/var/log/loadtest-results/CAS_LOAD_BASIC_prod_aggregate_results.xml</stringProp>
@@ -329,6 +333,7 @@
               <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
               <assertionsResultsToSave>0</assertionsResultsToSave>
               <bytes>true</bytes>
+              <threadCounts>true</threadCounts>
             </value>
           </objProp>
           <stringProp name="filename">/var/log/loadtest-results/CAS_LOAD_BASIC_prod_aggregate_results.xml</stringProp>
