@@ -9,7 +9,7 @@
         <collectionProp name="Arguments.arguments">
           <elementProp name="base_url" elementType="Argument">
             <stringProp name="Argument.name">base_url</stringProp>
-            <stringProp name="Argument.value">login.uoh.edu.sa</stringProp>
+            <stringProp name="Argument.value">login.example.org</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="cas_prefix" elementType="Argument">
@@ -39,7 +39,7 @@
           </elementProp>
           <elementProp name="target_service" elementType="Argument">
             <stringProp name="Argument.name">target_service</stringProp>
-            <stringProp name="Argument.value">https://my.uoh.edu.sa</stringProp>
+            <stringProp name="Argument.value">https://app.example.org</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="cas_logout" elementType="Argument">
